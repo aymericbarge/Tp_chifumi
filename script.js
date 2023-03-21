@@ -1,7 +1,7 @@
 let statutJeu = document.querySelector("#statut-jeu");
 let boutons = document.querySelectorAll(".container-boutons button");
-let boutonsTexte = ["PIERRE", "FEUILLE", "CISEAUX"];
-let scoreJoueur = 0;
+let coups = ["PIERRE", "FEUILLE", "CISEAUX"];
+let monScore = 0;
 let scoreOrdi = 0;
 let scores = document.querySelectorAll("#scores")
 
@@ -17,8 +17,8 @@ function calculerResultat(monCoup, coupOrdi) {
     if (coupOrdi == monCoup) {
         return "Copieur !"
     } else if (coupOrdi == monCoup - 1 || (monCoup == 0 && coupOrdi == 2)) {
-        scoreJoueur++
-        scores[0].textContent = scoreJoueur
+        monScore++
+        scores[0].textContent = monScore
         return "OK, gagné..."
     } else {
         scoreOrdi++
@@ -40,7 +40,7 @@ function coupAleatoire() {
 function commencerPartie() {
     statutJeu.textContent = "Choisissez !"
     boutons.forEach((bouton, index) => {
-        bouton.textContent = boutonsTexte[index]
+        bouton.textContent = coups[index]
         bouton.addEventListener("click", finirPartie)
     })
 }
@@ -52,7 +52,7 @@ function commencerPartie() {
 
 function finirPartie(event) {
     // On récupère le coup joué par le joueur
-    let monCoup = boutonsTexte.indexOf(event.target.textContent);
+    let monCoup = coups.indexOf(event.target.textContent);
 
     // On génère un coup aléatoire pour l'ordinateur
     let coupOrdi = coupAleatoire();
@@ -62,7 +62,7 @@ function finirPartie(event) {
 
     // On affiche les coups joués par les deux joueurs dans les éléments "affichageCoupsJoues" sous la forme "monCoup" "vs." "coupOrdi"
     let affichageCoupsJoues = document.querySelectorAll(".container-coups-joues h2")
-    let texteCoupsJoues = [boutonsTexte[monCoup], "vs.", boutonsTexte[coupOrdi]]
+    let texteCoupsJoues = [coups[monCoup], "vs.", coups[coupOrdi]]
 
     affichageCoupsJoues.forEach((elt, index) => elt.textContent = texteCoupsJoues[index])
 
